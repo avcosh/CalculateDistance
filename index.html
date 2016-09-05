@@ -1,0 +1,42 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Расчет растояния</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	
+</head>
+
+<body>
+	<input type = "text" name = "first" placeholder = "введите исходный адрес" id = "first">
+	<input type = "text" name = "second" placeholder = "введите конечный адрес" id = "second">
+	<button onclick = "search()">Рассчитать растояние</button>
+	<div id = "result"></div>
+	
+	<script>
+		function search () {
+			document.getElementById('result').innerHTML = ' ';
+			
+			var first = document.getElementById('first').value;
+			
+			var second = document.getElementById('second').value;
+			
+			var xhr = new XMLHttpRequest();
+			params = 'first=' + first + '&second=' + second;
+			xhr.open('POST', 'ajax.php?' + params , true);
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState === 4) {
+					var response = JSON.parse(xhr.responseText);
+					document.getElementById('result').innerHTML = 'растояние между пунктами ' + response + ' км.';
+					}
+				}
+			xhr.send();
+			
+			}
+	</script>
+	
+</body>
+
+</html>
